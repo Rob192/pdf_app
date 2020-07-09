@@ -12,9 +12,9 @@ services:
     command: gunicorn -w 2 --timeout 90 -b 0.0.0.0:8000 wsgi:server
     
   pseudo_app:
-    container_name: pseudo_app
+    container_name: pdf_app
     restart: always
-    build: ./pseudo_app
+    build: ./pdf_app
     ports:
       - "8010:8050"
     environment:
@@ -31,4 +31,4 @@ services:
       - "80:80"
     depends_on:
       - pseudo_api
-      - pseudo_app
+      - pdf_app
