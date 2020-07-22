@@ -2,6 +2,7 @@ import base64
 
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 
 
 def app_page_layout(page_layout, app_title="Etalab Pseudo", light_logo=False):
@@ -11,27 +12,26 @@ def app_page_layout(page_layout, app_title="Etalab Pseudo", light_logo=False):
             dcc.Location(id='url', refresh=False),
             html.Div(
                 id='app-page-header',
+                style={"background-color":"tertialy"},
                 children=[
                     html.A(
-                        id='dashbio-logo', children=[
+                        id='dashbio-logo',
+                        children=[
                             html.Img(
                                 src="./assets/MarianneLogo-3-90x57.png"
-
                             )],
                         href="https://www.etalab.gouv.fr/"
                     ),
                     html.H2([app_title, html.Sup("β")]),
-
-                    html.A(
-                        id='gh-link',
-                        children=[
-                            'Voir sur Github'
-                        ],
-                        href="https://github.com/psorianom/pseudo_app",
-                        style={'color': 'white' if light_logo else 'black',
-                               'border': 'solid 1px white' if light_logo else 'solid 1px black'},
-                        target="_blank"
-                    ),
+                    html.A(id='gh-link',
+                           children=[
+                               'Voir sur Github'
+                           ],
+                           href="https://github.com/psorianom/pseudo_app",
+                           style={'color': 'white' if light_logo else 'black',
+                                  'border': 'solid 1px white' if light_logo else 'solid 1px black'},
+                           target="_blank"
+                           ),
 
                     html.Img(
                         src='data:image/png;base64,{}'.format(
@@ -43,13 +43,68 @@ def app_page_layout(page_layout, app_title="Etalab Pseudo", light_logo=False):
                                     'rb'
                                 ).read()
                             ).decode()
-                        )
+                        ),
                     )
                 ],
             ),
             html.Div(
                 id='app-page-content',
-                children=page_layout
+                children=dbc.Container(
+                    id= 'main_container',
+                    children=page_layout
+                )
+            )
+        ],
+    )
+
+def app_page_layout_save(page_layout, app_title="Etalab Pseudo", light_logo=False):
+    return html.Div(
+        id='main_page',
+        children=[
+            dcc.Location(id='url', refresh=False),
+            html.Div(
+                id='app-page-header',
+                style={"background-color":"tertialy"},
+                children=[
+                    html.A(
+                        id='dashbio-logo',
+                        children=[
+                            html.Img(
+                                src="./assets/MarianneLogo-3-90x57.png"
+                            )],
+                        href="https://www.etalab.gouv.fr/"
+                    ),
+                    html.H2([app_title, html.Sup("β")]),
+                    html.A(id='gh-link',
+                           children=[
+                               'Voir sur Github'
+                           ],
+                           href="https://github.com/psorianom/pseudo_app",
+                           style={'color': 'white' if light_logo else 'black',
+                                  'border': 'solid 1px white' if light_logo else 'solid 1px black'},
+                           target="_blank"
+                           ),
+
+                    html.Img(
+                        src='data:image/png;base64,{}'.format(
+                            base64.b64encode(
+                                open(
+                                    './assets/GitHub-Mark-{}64px.png'.format(
+                                        'Light-' if light_logo else ''
+                                    ),
+                                    'rb'
+                                ).read()
+                            ).decode()
+                        ),
+                    )
+                ],
+            ),
+            html.Div(
+                id='app-page-content',
+                children=dbc.Container(
+                    id= 'main_container',
+                    children=page_layout
+                )
             )
         ],
     )

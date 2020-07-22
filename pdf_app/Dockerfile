@@ -1,8 +1,9 @@
 FROM continuumio/miniconda3
 
-WORKDIR usr/src/pseudo_app
-RUN apt-get update && apt-get install antiword
+WORKDIR usr/src/pdf_app
+RUN apt-get update
 ADD environment.yml environment.yml
+ADD requirements.txt requirements.txt
 
 RUN conda env create -f environment.yml
 ENV PATH /opt/conda/envs/dash_pseudo_app/bin:$PATH
